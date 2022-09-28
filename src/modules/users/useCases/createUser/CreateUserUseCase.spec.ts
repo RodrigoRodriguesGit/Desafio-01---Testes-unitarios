@@ -1,3 +1,5 @@
+import request from "supertest"
+import { app } from "../../../../app"
 
 import { InMemoryUsersRepository } from "../../repositories/in-memory/InMemoryUsersRepository"
 import { CreateUserUseCase } from "./CreateUserUseCase"
@@ -18,17 +20,35 @@ describe("Create User", () => {
     it("should be able to create a new user", async () => {
 
         const user: ICreateUserDTO = {
-            name: "teste_001",
-            email: "teste_001@teste_001",
-            password: "121212",
+            name: "TS_001",
+            email: "TS_001@gmail.com",
+            password: "123",
         }
 
-        await createUserUseCase.execute(user);
+        //await createUserUseCase.execute(user)
 
         console.log(user)
+
+        const response = await request(app).post("/").send({
+          name: user.name,
+          email: user.email,
+          password: user.password
+      })
+
+        expect(response.status).toBe(404)
 
     })
 
 
+    it("should be able to return user data", async () => {
+
+       const responseToken = await request(app).post("/sessions").send({
+          email: "TS_001@gmail.com",
+          password: "123"
+       })
+
+       
+
+    })
 
 })
