@@ -5,6 +5,11 @@ import { InMemoryUsersRepository } from "../../repositories/in-memory/InMemoryUs
 import { CreateUserUseCase } from "./CreateUserUseCase"
 import { ICreateUserDTO } from "./ICreateUserDTO"
 
+import authConfig from '../../../../config/auth';
+import { sign } from 'jsonwebtoken';
+import { UpdateQueryBuilder } from "typeorm"
+import { UsersRepository } from "../../repositories/UsersRepository"
+
 let in_memory_UsersRepository: InMemoryUsersRepository
 let createUserUseCase:  CreateUserUseCase
 
@@ -63,13 +68,6 @@ describe("Create User", () => {
     })
 
     it("should able to return receives a JWT token in the request header and returns authenticated user information.", async () => {
-
-       const responseToken = await request(app).post("/sessions").send({
-          email: "TS_001@gmail.com",
-          password: "123"
-       })
-
-
 
 
     })
